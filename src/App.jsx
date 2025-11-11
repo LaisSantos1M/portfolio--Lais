@@ -11,20 +11,42 @@ import viteImg from "/vitee.png";
 import reactImg from "/react.png";
 import vercelImg from "/vercel.png";
 
-
-
-
-
+import { useState } from "react";
 
 function App() {
   //Javascript
+
+  const defaultPhoneNumber = "5541999200982";
+
+  const [formData, setFormData] = useState({
+    name: " ",
+    email: " ",
+    message: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleZap = () => {
+    const { name, email, message } = formData;
+
+    const urlZap = `https://api.whatsapp.com/send?phone=${defaultPhoneNumber}&text= 
+    Nome:%20${name}
+    Email:$%20${email}
+    Mensagem:$%20${message}`;
+
+    window.open(urlZap, "_blank");
+  };
 
   return (
     <>
       <nav className={style.menu}>
         <a href="#s1">Home</a>
         <a href="#s2">Cards</a>
-        <a href="#s3">Video</a>
+        <a href="#s3">xx</a>
+        <a href="#s5">Praias</a>
         <a href="#s4">Contato</a>
       </nav>
       <main>
@@ -119,8 +141,67 @@ function App() {
           <h2>sessao 3</h2>
         </section>
 
-        <section id="s4">
-          <h2>sessao 4</h2>
+        <section id="s5" className={style.s5}>
+          <h3>Praias 🏖️</h3>
+          <h2> Pontal do parana </h2>
+          <p>
+            É uma praia muito tranquila não tem muitas ondas e é perfeita para
+            relaxar.Nesta praia você não precisa ficar se preucupando com as
+            pessoas porque é estremamente vazia KK. Recomendo muito esta praia
+            se você quer descansar da correria da cidade.
+          </p>
+          <h2> Guarda do Embau </h2>
+          <p>
+            Esta praia é simpesmente encantadora. Ela tem trilhas que te levam
+            ao topo de uma "pequena" montanha e la de cima é possivel ver a
+            praia toda e, dependendo da epoca que você for, é possivel avistar
+            baleias! A praia é limpa e organizada tem quadras com rede que podem
+            ser utilizadas para diversas brincadeiras e esportes. É perfeita
+            para ir com os amigos e familia.
+          </p>
+
+          <h2> Praia do Forte</h2>
+          <p>
+            Esta praia é localizada onde antes era um grande Forte e protegia
+            aquela região, inclusive tem museu que pode ser visitado, a historia
+            dali é estremamente interessante e a praia é linda.
+
+          </p>
+        </section>
+
+        <section id="s4" className={style.s4}>
+          <h2>CONTATO</h2>
+          <div className={style.formData}>
+            <label htmlFor="name">Informe seu nome</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="email">Informe seu email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="message">Informe sua mensagem</label>
+            <textarea
+              name="message"
+              id="message"
+              value={formData.message}
+              onChange={handleChange}
+              cols="30"
+              rows="10"
+              required
+            />
+            <button onClick={handleZap}>Enviar mensagem</button>
+          </div>
         </section>
       </main>
       <footer className={style.rodape}>
