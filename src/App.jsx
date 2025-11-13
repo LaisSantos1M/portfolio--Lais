@@ -1,20 +1,27 @@
 import style from "./App.module.css";
+
 import fotoPerfil from "/eu.jpg";
 import FacebookIcon from "/face.avif";
 import InstagramIcon from "/insta.jpg";
 import linkedinIcon from "/like.avif";
 import whastsappIcon from "/what.avif";
-import htmlImg from "/html.png";
-import cssImg from "/css.jpg";
-import jsImg from "/js.png";
-import viteImg from "/vitee.png";
-import reactImg from "/react.png";
-import vercelImg from "/vercel.png";
 
-import { useState } from "react";
+
+import { Card } from "./components/card";
+
+import { useState, useEffect } from "react";
 
 function App() {
   //Javascript
+  const [dados,setDados] = useState([])
+
+useEffect(() =>{
+    fetch('/cardsInfo.json')
+    .then(response => response.json())
+    .then(data =>{
+      setDados(data)
+    })
+}, [])
 
   const defaultPhoneNumber = "5541999200982";
 
@@ -67,73 +74,16 @@ function App() {
         </section>
 
         <section className={style.s2} id="s2">
-          <h2 className={style.tecTitle}>Tecnologias</h2>
+          <h2 className={style.tecTitle}>TECNOLOGIAS</h2>
           <div className={style.wrapCards}>
-            <div className={style.card}>
-              <img src={htmlImg} width={85} alt="HTML" />
-              <h3>HTML</h3>
-              <p>
-                HTML (Linguagem de Marcação de Hipertexto) é a linguagem padrão
-                para criar a estrutura e o conteúdo de páginas da web, definindo
-                elementos como títulos, parágrafos, imagens e links.
-              </p>
-            </div>
-
-            <div className={style.card}>
-              <img src={cssImg} width={85} alt="CSS" />
-              <h3>CSS</h3>
-              <p>
-                CSS (Cascading Style Sheets) é uma linguagem de estilo usada
-                para definir a aparência de documentos escritos em linguagens de
-                marcação como HTML, controlando cores, fontes, layout,
-                espaçamentos e outros aspectos visuais.
-              </p>
-            </div>
-
-            <div className={style.card}>
-              <img src={jsImg} width={85} alt="JS" />
-              <h3>JS</h3>
-              <p>
-                JS, ou JavaScript, é uma linguagem de programação usada
-                principalmente para tornar páginas web interativas e dinâmicas
-                no lado do cliente (navegador) e do servidor (Node.js).
-              </p>
-            </div>
-
-            <div className={style.card}>
-              <img src={viteImg} width={85} alt="VITE" />
-              <h3>VITE</h3>
-              <p>
-                Vite (palavra francesa para "rápido", pronunciada como /vit/,
-                como "veet") é uma ferramenta de construção de projetos de
-                frontend que se destina a oferecer uma experiência de
-                desenvolvimento mais rápida e leve para projetos de web
-                modernos.
-              </p>
-            </div>
-
-            <div className={style.card}>
-              <img src={reactImg} width={85} alt="REACT" />
-              <h3>REACT</h3>
-              <p>
-                React é uma biblioteca JavaScript de código aberto criada pelo
-                Facebook para construir interfaces de usuário (UIs) interativas,
-                especialmente para aplicações web e single-page applications
-                (SPAs).
-              </p>
-            </div>
-
-            <div className={style.card}>
-              <img src={vercelImg} width={85} alt="VERCEL" />
-              <h3>VERCEL</h3>
-              <p>
-                Vercel é uma plataforma de nuvem que simplifica a criação,
-                implantação e hospedagem de sites e aplicativos web modernos,
-                oferecendo um ambiente otimizado para desenvolvedores,
-                especialmente para aqueles que utilizam o framework Next.js, que
-                foi criado pela própria Vercel.
-              </p>
-            </div>
+            {dados.map((item) => {
+              return(
+                <div key={item.id}>
+                <Card tec={item.tecnologia} image={item.imagem} text={item.texto}/>
+                </div>
+              )
+            })}
+          
           </div>
         </section>
 
@@ -165,7 +115,6 @@ function App() {
             Esta praia é localizada onde antes era um grande Forte e protegia
             aquela região, inclusive tem museu que pode ser visitado, a historia
             dali é estremamente interessante e a praia é linda.
-
           </p>
         </section>
 
